@@ -1,0 +1,489 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lốp Xe Ngân Giang - Nhà phân phối lốp xe, dầu nhờn, bình ắc quy chính hãng tại Bắc Kạn.">
+    <meta name="keywords" content="lốp xe, dầu nhờn, bình ắc quy, Ngân Giang, MAXXIS, Bắc Kạn">
+    <meta name="author" content="Ngân Giang">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Lốp Xe Ngân Giang - Nhà Phân Phối Lớp Xe Lớn Nhất Bắc Kạn</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            scroll-behavior: smooth; 
+            background: #f5f7fa;
+        }
+        .banner { 
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: bannerZoom 15s infinite ease-in-out;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+        }
+        @keyframes bannerZoom {
+            0%, 100% { background-size: 100%; }
+            50% { background-size: 120%; }
+        }
+        .brand-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .brand-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+        .brand-card.maxxis {
+            border: 3px solid #e53e3e;
+            transform: scale(1.05);
+        }
+        .brand-card.maxxis:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+        .brand-card img {
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: grayscale(30%);
+            max-width: 100%;
+            height: auto;
+        }
+        .brand-card:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #e53e3e, #f56565);
+            transition: all 0.3s ease;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+        }
+        .btn-ripple:hover {
+            background: linear-gradient(45deg, #c53030, #e53e3e);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .btn-ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn-ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+        .why-choose {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('background.jpg') fixed;
+            background-size: cover;
+            padding: 4rem 0;
+            color: white;
+        }
+        .why-choose-item {
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.9 Vine);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .why-choose-item:hover {
+            transform: scale(1.05);
+            background: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .social-icon {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .social-icon:hover {
+            transform: translateX(5px);
+            background: rgba(229, 62, 62, 0.1);
+            color: #e53e3e;
+        }
+        .header {
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #e53e3e;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .mobile-nav {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            background: white;
+            backdrop-filter: blur(10px);
+        }
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+        .fab-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+        }
+        .fab-toggle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #e53e3e, #f56565);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .fab-toggle:hover {
+            transform: rotate(90deg);
+            background: linear-gradient(45deg, #c53030, #e53e3e);
+        }
+        .fab-buttons {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .fab-buttons.open {
+            display: flex;
+            animation: slideIn 0.3s ease-out;
+        }
+        .fab-button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .fab-button:hover {
+            transform: scale(1.1);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-divider {
+            background: url('tire-tread-pattern.png') repeat-x;
+            height: 10px;
+            margin: 2rem 0;
+            opacity: 0.3;
+        }
+        @media (max-width: 768px) {
+            .banner { min-height: 400px; }
+            .banner h1 { font-size: 2rem; }
+            .brand-card.maxxis { transform: scale(1.03); }
+            .why-choose-item { padding: 1.5rem; }
+            .fab-toggle { width: 48px; height: 48px; }
+            .fab-button { width: 40px; height: 40px; }
+        }
+        @media (max-width: 480px) {
+            .banner h1 { font-size: 1.5rem; }
+            .brand-card img { width: 70%; }
+            .btn-ripple { padding: 8px 16px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="logo_ngangiang.png" alt="Logo Ngân Giang" class="h-14">
+                <h1 class="text-2xl font-bold text-gray-800 ml-3">Lốp Xe Ngân Giang</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-red-600 nav-link">Trang chủ</a>
+                <a href="#brands" class="text-gray-700 hover:text-red-600 nav-link">Thương hiệu lốp</a>
+                <a href="#about" class="text-gray-700 hover:text-red-600 nav-link">Giới thiệu</a>
+                <a href="#contact" class="text-gray-700 hover:text-red-600 nav-link">Liên hệ</a>
+            </nav>
+            <button class="md:hidden text-gray-700 toggle-nav">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav fixed inset-y-0 right-0 w-3/4 bg-white shadow-lg md:hidden flex flex-col p-6 space-y-6 z-50">
+            <button class="self-end text-gray-700 toggle-nav">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <a href="#home" class="text-gray-700 hover:text-red-600 text-lg font-medium">Trang chủ</a>
+            <a href="#brands" class="text-gray-700 hover:text-red-600 text-lg font-medium">Thương hiệu lốp</a>
+            <a href="#about" class="text-gray-700 hover:text-red-600 text-lg font-medium">Giới thiệu</a>
+            <a href="#contact" class="text-gray-700 hover:text-red-600 text-lg font-medium">Liên hệ</a>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <section id="home" class="banner text-center">
+        <div class="container mx-auto px-4" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">Chất lượng tạo uy tín<br>Nhà phân phối lốp xe hàng đầu!</h1>
+            <a href="#brands" class="btn-ripple inline-block">Khám phá thương hiệu</a>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Brands -->
+    <section id="brands" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-6" data-aos="fade-up">Thương Hiệu Lốp Xe</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Nhà phân phối lốp xe chính hãng từ các thương hiệu hàng đầu, lớn nhất khu vực Bắc Kạn.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="brand-card maxxis p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="100">
+                    <img loading="lazy" src="https://www.maxxis.com/us/wp-content/themes/maxxis/assets/images/logo.svg" alt="MAXXIS" class="w-32 mb-2">
+                    <h3 class="text-xl font-semibold text-red-600">MAXXIS</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="200">
+                    <img loading="lazy" src="https://robert-parker-michelin-bk-stage.s3.amazonaws.com/media/image/2017/08/22/280ed21954b24406a46dce03abc9596a_michelin-logo-small.jpg" alt="Michelin" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">Michelin</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="300">
+                    <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Bridgestone_logo.svg" alt="Bridgestone" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">Bridgestone</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="400">
+                    <img loading="lazy" src="https://roadxtruck.com/wp-content/themes/roadx/static/imgs/logo-glow-v4-splash.png" alt="RoadX" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">RoadX</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="500">
+                    <img loading="lazy" src="https://static.wixstatic.com/media/7ea6ab_11c8d5f1bb16465390d2ed0cf2a56eba~mv2.png/v1/fill/w_442,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/drc.png" alt="DRC" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">DRC</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="600">
+                    <img loading="lazy" src="logo_casumina.jpg" alt="Casumina" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">Casumina</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- About -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-6" data-aos="fade-up">Giới Thiệu Lốp Xe Ngân Giang</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">Doanh nghiệp tư nhân Lốp Xe Ngân Giang tự hào là nhà phân phối lốp xe, dầu nhờn, và bình ắc quy chính hãng hàng đầu tại Bắc Kạn. Với hơn 10 năm kinh nghiệm, chúng tôi cam kết mang đến sản phẩm chất lượng và dịch vụ tận tâm.</p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Why Choose Us -->
+    <section class="py-16 why-choose">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-6" data-aos="fade-up">Tại Sao Chọn Lốp Xe Ngân Giang?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="why-choose-item" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-check-circle text-red-600 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold">Sản phẩm chính hãng</h3>
+                    <p class="text-gray-600">Lốp xe, dầu nhờn, bình ắc quy từ các thương hiệu uy tín.</p>
+                </div>
+                <div class="why-choose-item" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-tags text-red-600 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold">Giá cạnh tranh</h3>
+                    <p class="text-gray-600">Giá tốt nhất thị trường, minh bạch.</p>
+                </div>
+                <div class="why-choose-item" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-headset text-red-600 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold">Tư vấn nhiệt tình</h3>
+                    <p class="text-gray-600">Cam kết hỗ trợ 24/7.</p>
+                </div>
+                <div class="why-choose-item" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-truck text-red-600 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold">Giao hàng nhanh</h3>
+                    <p class="text-gray-600">Giao hàng toàn quốc, đúng hẹn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-6" data-aos="fade-up">Liên Hệ Với Chúng Tôi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Info -->
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Thông Tin Liên Hệ</h3>
+                    <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt text-red-600 mr-2"></i> 155 Đường Kontum, phường Đức Xuân, Thành Phố Bắc Kạn</p>
+                    <p class="text-gray-600 mb-2"><i class="fas fa-phone text-red-600 mr-2"></i> 0354926003</p>
+                    <p class="text-gray-600 mb-2"><i class="fas fa-envelope text-red-600 mr-2"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c222b2d222b252d22237c767f7e0c2b212d2520622f2321">[email protected]</a></p>
+                    <p class="text-gray-600 mt-4 font-semibold"><i class="fas fa-map-pin text-red-600 mr-2"></i> Cơ sở 1:</p>
+                    <div class="mt-2">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d35156.68362330124!2d105.83688090525054!3d22.14917792279723!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x36cadeef2a4ad829%3A0x330c0fb081adf87!2zTmfDom4gR2lhbmcgxJDhuqFpIEzDvSBTxINtIEzhu5FwIMOUIFTDtA!5e0!3m2!1svi!2sus!4v1745126106270!5m2!1svi!2sus" width="100%" height="450" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <p class="text-gray-600 mt-4 font-semibold"><i class="fas fa-map-pin text-red-600 mr-2"></i> Cơ sở 2:</p>
+                    <div class="mt-2">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3696.0644870109554!2d105.83674337517984!3d22.12351684928034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x36cadf0021776495%3A0x91745d60ef7acf47!2zTOG7kXAgw5QgVMO0IE5nw6JuIEdpYW5nIC0gQ8ahIFPhu58gMg!5e0!3m2!1svi!2s!4v1747660125648!5m2!1svi!2s" width="100%" height="450" style="border:0; border-radius: 8px; " allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <!-- Social Media Links -->
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Kết Nối Với Chúng Tôi</h3>
+                    <div class="flex flex-col space-y-4">
+                        <a href="http://zalo.vn/0354926003" target="_blank" class="social-icon text-gray-600">
+                            <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" class="w-8 h-8 mr-3">
+                            <span class="font-medium">Zalo</span>
+                        </a>
+                        <a href="https://www.facebook.com/lopxengangiang" target="_blank" class="social-icon text-gray-600">
+                            <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/6/63/Facebook_Messenger_logo_2025.svg" alt="Messenger" class="w-8 h-8 mr-3">
+                            <span class="font-medium">Facebook Messenger</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@ngangiang2810" target="_blank" class="social-icon text-gray-600">
+                            <img loading="lazy" src="logo_tiktok.png" alt="Tiktok" class="w-8 h-8 mr-3">
+                            <span class="font-medium">TikTok</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Action Buttons -->
+    <div class="fab-container">
+        <div class="fab-buttons" id="fabButtons">
+            <a href="https://zalo.me/0354926003" target="_blank" class="fab-button bg-blue-500 hover:bg-blue-600">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" class="w-6 h-6">
+            </a>
+            <a href="https://m.me/lopxengangiang" target="_blank" class="fab-button bg-[#0084FF] hover:bg-[#006fd6]">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Facebook_Messenger_logo_2025.svg" alt="Messenger" class="w-6 h-6">
+            </a>
+            <a href="tel:0354926003" class="fab-button bg-green-500 hover:bg-green-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="white">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h2a1 1 0 011 1v3a1 1 0 01-1 1H6v2a10 10 0 0010 10h2v-2a1 1 0 011-1h3a1 1 0 011 1v2a2 2 0 01-2 2h-1C9.373 21 3 14.627 3 6V5z" />
+                </svg>
+            </a>
+        </div>
+        <div class="fab-toggle" id="fabToggle">
+            <i class="fas fa-plus text-white text-xl"></i>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm">© 2025 Doanh nghiệp tư nhân Lốp Xe Ngân Giang. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+
+        // Mobile menu toggle
+        const toggleNav = document.querySelectorAll('.toggle-nav');
+        const mobileNav = document.querySelector('.mobile-nav');
+        toggleNav.forEach(button => {
+            button.addEventListener('click', () => {
+                mobileNav.classList.toggle('open');
+            });
+        });
+
+        // FAB toggle
+        const fabToggle = document.getElementById('fabToggle');
+        const fabButtons = document.getElementById('fabButtons');
+        fabToggle.addEventListener('click', () => {
+            fabButtons.classList.toggle('open');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

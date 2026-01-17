@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lốp Xe Ngân Giang - Nhà phân phối lốp xe, dầu nhờn, bình ắc quy chính hãng tại Bắc Kạn.">
+    <meta name="keywords" content="lốp xe, dầu nhờn, bình ắc quy, Ngân Giang, MAXXIS, Bắc Kạn">
+    <meta name="author" content="Ngân Giang">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Lốp Xe Ngân Giang - Nhà Phân Phối Lớp Xe Lớn Nhất Bắc Kạn</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e53e3e;
+            --primary-hover: #c53030;
+            --text-color: #1a202c;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: #1a202c;
+            --footer-text: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --shadow-color-strong: rgba(0, 0, 0, 0.3);
+        }
+
+        .dark {
+            --primary-color: #f56565;
+            --primary-hover: #e53e3e;
+            --text-color: #e2e8f0;
+            --bg-color: #1a202c;
+            --card-bg: #2d3748;
+            --header-bg: rgba(26, 32, 44, 0.95);
+            --footer-bg: #0d1117;
+            --footer-text: #e2e8f0;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --shadow-color-strong: rgba(0, 0, 0, 0.7);
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            scroll-behavior: smooth; 
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .banner { 
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: bannerZoom 15s infinite ease-in-out;
+            box-shadow: 0 8px 20px var(--shadow-color-strong);
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+        }
+        @keyframes bannerZoom {
+            0%, 100% { background-size: 100%; }
+            50% { background-size: 120%; }
+        }
+        .brand-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 16px;
+            background: var(--card-bg);
+            box-shadow: 0 6px 15px var(--shadow-color);
+            overflow: hidden;
+            position: relative;
+        }
+        .brand-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px var(--shadow-color-strong);
+        }
+        .brand-card.maxxis {
+            border: 3px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+        .brand-card.maxxis:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+        .brand-card img {
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: grayscale(30%);
+            max-width: 100%;
+            height: auto;
+        }
+        .brand-card:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
+            transition: all 0.3s ease;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+        }
+        .btn-ripple:hover {
+            background: linear-gradient(45deg, var(--primary-hover), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-color-strong);
+        }
+        .btn-ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn-ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+        .why-choose {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('background.jpg') fixed;
+            background-size: cover;
+            padding: 4rem 0;
+            color: white;
+        }
+        .why-choose-item {
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.9);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .dark .why-choose-item {
+            background: rgba(45, 55, 72, 0.9);
+        }
+        .why-choose-item:hover {
+            transform: scale(1.05);
+            background: white;
+            box-shadow: 0 10px 20px var(--shadow-color-strong);
+        }
+        .dark .why-choose-item:hover {
+            background: #4A5568;
+        }
+        .social-icon {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .social-icon:hover {
+            transform: translateX(5px);
+            background: rgba(229, 62, 62, 0.1);
+            color: var(--primary-color);
+        }
+        .header {
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 5px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+        .header.scrolled {
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .mobile-nav {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+        }
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+        .fab-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+        }
+        .fab-toggle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px var(--shadow-color-strong);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .fab-toggle:hover {
+            transform: rotate(90deg);
+            background: linear-gradient(45deg, var(--primary-hover), var(--primary-color));
+        }
+        .fab-buttons {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .fab-buttons.open {
+            display: flex;
+            animation: slideIn 0.3s ease-out;
+        }
+        .fab-button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+        .fab-button:hover {
+            transform: scale(1.1);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-divider {
+            background: url('tire-tread-pattern.png') repeat-x;
+            height: 10px;
+            margin: 2rem 0;
+            opacity: 0.3;
+        }
+        
+        /* Dark Mode Toggle */
+        .cosmic-toggle {
+          position: relative;
+          width: 70px;
+          height: 35px;
+          transform-style: preserve-3d;
+          perspective: 500px;
+          margin-left: 20px;
+        }
+
+        .toggle {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(45deg, #1a1a2e, #16213e);
+          border-radius: 35px;
+          transition: 0.5s;
+          transform-style: preserve-3d;
+          box-shadow:
+            0 0 10px rgba(0, 0, 0, 0.5),
+            inset 0 0 8px rgba(255, 255, 255, 0.05);
+          overflow: hidden;
+        }
+
+        .cosmos {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(1px 1px at 10% 10%, #fff 100%, transparent),
+            radial-gradient(1px 1px at 20% 20%, #fff 100%, transparent),
+            radial-gradient(2px 2px at 30% 30%, #fff 100%, transparent),
+            radial-gradient(1px 1px at 40% 40%, #fff 100%, transparent),
+            radial-gradient(2px 2px at 50% 50%, #fff 100%, transparent),
+            radial-gradient(1px 1px at 60% 60%, #fff 100%, transparent),
+            radial-gradient(2px 2px at 70% 70%, #fff 100%, transparent),
+            radial-gradient(1px 1px at 80% 80%, #fff 100%, transparent),
+            radial-gradient(1px 1px at 90% 90%, #fff 100%, transparent);
+          background-size: 200% 200%;
+          opacity: 0.1;
+          transition: 0.5s;
+        }
+
+        .toggle-orb {
+          position: absolute;
+          height: 29px;
+          width: 29px;
+          left: 3px;
+          bottom: 3px;
+          background: linear-gradient(145deg, #ff6b6b, #4ecdc4);
+          border-radius: 50%;
+          transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          transform-style: preserve-3d;
+          z-index: 2;
+        }
+
+        .inner-orb {
+          position: absolute;
+          inset: 3px;
+          border-radius: 50%;
+          background: linear-gradient(145deg, #fff, #e6e6e6);
+          transition: 0.5s;
+          overflow: hidden;
+        }
+
+        .inner-orb::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: repeating-conic-gradient(
+            from 0deg,
+            transparent 0deg,
+            rgba(0, 0, 0, 0.1) 10deg,
+            transparent 20deg
+          );
+          animation: patternRotate 10s linear infinite;
+        }
+
+        .ring {
+          position: absolute;
+          inset: -2px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          transition: 0.5s;
+        }
+
+        .toggle:checked + .slider {
+          background: linear-gradient(45deg, #16213e, #1a1a2e);
+        }
+
+        .toggle:checked + .slider .toggle-orb {
+          transform: translateX(35px) rotate(360deg);
+          background: linear-gradient(145deg, #4ecdc4, #45b7af);
+        }
+
+        .toggle:checked + .slider .inner-orb {
+          background: linear-gradient(145deg, #45b7af, #3da89f);
+          transform: scale(0.9);
+        }
+
+        .toggle:checked + .slider .ring {
+          border-color: rgba(78, 205, 196, 0.3);
+          animation: ringPulse 2s infinite;
+        }
+
+        .energy-line {
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(78, 205, 196, 0.5),
+            transparent
+          );
+          transform-origin: left;
+          opacity: 0;
+          transition: 0.5s;
+        }
+
+        .energy-line:nth-child(1) {
+          top: 20%;
+          transform: rotate(15deg);
+        }
+        .energy-line:nth-child(2) {
+          top: 50%;
+          transform: rotate(0deg);
+        }
+        .energy-line:nth-child(3) {
+          top: 80%;
+          transform: rotate(-15deg);
+        }
+
+        .toggle:checked + .slider .energy-line {
+          opacity: 1;
+          animation: energyFlow 2s linear infinite;
+        }
+
+        .particles {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+
+        .particle {
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          background: #4ecdc4;
+          border-radius: 50%;
+          opacity: 0;
+        }
+
+        .toggle:checked + .slider .particle {
+          animation: particleBurst 1s ease-out infinite;
+        }
+
+        .particle:nth-child(1) {
+          left: 20%;
+          animation-delay: 0s;
+        }
+        .particle:nth-child(2) {
+          left: 40%;
+          animation-delay: 0.2s;
+        }
+        .particle:nth-child(3) {
+          left: 60%;
+          animation-delay: 0.4s;
+        }
+        .particle:nth-child(4) {
+          left: 80%;
+          animation-delay: 0.6s;
+        }
+        .particle:nth-child(5) {
+          left: 30%;
+          animation-delay: 0.8s;
+        }
+        .particle:nth-child(6) {
+          left: 70%;
+          animation-delay: 1s;
+        }
+
+        /* Animations */
+        @keyframes ringPulse {
+          0%,
+          100% {
+            transform: scale(1);
+            opacity: 0.3;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.6;
+          }
+        }
+
+        @keyframes patternRotate {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes energyFlow {
+          0% {
+            transform: scaleX(0) translateX(0);
+            opacity: 0;
+          }
+          50% {
+            transform: scaleX(1) translateX(50%);
+            opacity: 1;
+          }
+          100% {
+            transform: scaleX(0) translateX(100%);
+            opacity: 0;
+          }
+        }
+
+        @keyframes particleBurst {
+          0% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(
+                calc(cos(var(--angle)) * 20px),
+                calc(sin(var(--angle)) * 20px)
+              )
+              scale(0);
+            opacity: 0;
+          }
+        }
+
+        /* Hover effects */
+        .slider:hover .toggle-orb {
+          filter: brightness(1.2);
+          box-shadow:
+            0 0 10px rgba(78, 205, 196, 0.5),
+            0 0 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .slider:hover .cosmos {
+          opacity: 0.2;
+          animation: cosmosPan 20s linear infinite;
+        }
+
+        @keyframes cosmosPan {
+          0% {
+            background-position: 0% 0%;
+          }
+          100% {
+            background-position: 200% 200%;
+          }
+        }
+
+        /* Active state */
+        .toggle:active + .slider .toggle-orb {
+          transform: scale(0.95);
+        }
+
+        /* 3D effect on hover */
+        .cosmic-toggle:hover .slider {
+          transform: rotateX(10deg) rotateY(10deg);
+        }
+
+        .cosmic-toggle:hover .toggle-orb {
+          transform: translateZ(5px);
+        }
+
+        /* Glow effect */
+        .toggle:checked + .slider::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            circle at var(--x, 50%) var(--y, 50%),
+            rgba(78, 205, 196, 0.2),
+            transparent 50%
+          );
+          opacity: 0;
+          animation: glowFollow 2s linear infinite;
+        }
+
+        @keyframes glowFollow {
+          0%,
+          100% {
+            opacity: 0.2;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+        
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .banner { min-height: 400px; }
+            .banner h1 { font-size: 2rem; }
+            .brand-card.maxxis { transform: scale(1.03); }
+            .why-choose-item { padding: 1.5rem; }
+            .fab-toggle { width: 48px; height: 48px; }
+            .fab-button { width: 40px; height: 40px; }
+            .cosmic-toggle {
+                width: 60px;
+                height: 30px;
+                margin-left: 15px;
+            }
+            .toggle-orb {
+                height: 24px;
+                width: 24px;
+            }
+            .toggle:checked + .slider .toggle-orb {
+                transform: translateX(30px) rotate(360deg);
+            }
+        }
+        @media (max-width: 480px) {
+            .banner h1 { font-size: 1.5rem; }
+            .brand-card img { width: 70%; }
+            .btn-ripple { padding: 8px 16px; font-size: 0.9rem; }
+            .cosmic-toggle {
+                width: 50px;
+                height: 26px;
+                margin-left: 10px;
+            }
+            .toggle-orb {
+                height: 20px;
+                width: 20px;
+            }
+            .toggle:checked + .slider .toggle-orb {
+                transform: translateX(24px) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="logo_ngangiang.png" alt="Logo Ngân Giang" class="h-14">
+                <h1 class="text-2xl font-bold ml-3">Lốp Xe Ngân Giang</h1>
+            </div>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="text-current hover:text-red-600 nav-link">Trang chủ</a>
+                <a href="#brands" class="text-current hover:text-red-600 nav-link">Thương hiệu lốp</a>
+                <a href="#about" class="text-current hover:text-red-600 nav-link">Giới thiệu</a>
+                <a href="#contact" class="text-current hover:text-red-600 nav-link">Liên hệ</a>
+                
+                <!-- Dark Mode Toggle -->
+                <label class="cosmic-toggle">
+                  <input class="toggle" type="checkbox" id="darkModeToggle">
+                  <div class="slider">
+                    <div class="cosmos"></div>
+                    <div class="energy-line"></div>
+                    <div class="energy-line"></div>
+                    <div class="energy-line"></div>
+                    <div class="toggle-orb">
+                      <div class="inner-orb"></div>
+                      <div class="ring"></div>
+                    </div>
+                    <div class="particles">
+                      <div style="--angle: 30deg" class="particle"></div>
+                      <div style="--angle: 60deg" class="particle"></div>
+                      <div style="--angle: 90deg" class="particle"></div>
+                      <div style="--angle: 120deg" class="particle"></div>
+                      <div style="--angle: 150deg" class="particle"></div>
+                      <div style="--angle: 180deg" class="particle"></div>
+                    </div>
+                  </div>
+                </label>
+            </div>
+            <div class="md:hidden flex items-center">
+                <!-- Mobile Dark Mode Toggle -->
+                <label class="cosmic-toggle mr-4">
+                  <input class="toggle" type="checkbox" id="darkModeToggleMobile">
+                  <div class="slider">
+                    <div class="cosmos"></div>
+                    <div class="energy-line"></div>
+                    <div class="energy-line"></div>
+                    <div class="energy-line"></div>
+                    <div class="toggle-orb">
+                      <div class="inner-orb"></div>
+                      <div class="ring"></div>
+                    </div>
+                    <div class="particles">
+                      <div style="--angle: 30deg" class="particle"></div>
+                      <div style="--angle: 60deg" class="particle"></div>
+                      <div style="--angle: 90deg" class="particle"></div>
+                      <div style="--angle: 120deg" class="particle"></div>
+                      <div style="--angle: 150deg" class="particle"></div>
+                      <div style="--angle: 180deg" class="particle"></div>
+                    </div>
+                  </div>
+                </label>
+                
+                <button class="text-current toggle-nav">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav fixed inset-y-0 right-0 w-3/4 md:hidden flex flex-col p-6 space-y-6 z-50">
+            <button class="self-end text-current toggle-nav">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <a href="#home" class="text-current hover:text-red-600 text-lg font-medium">Trang chủ</a>
+            <a href="#brands" class="text-current hover:text-red-600 text-lg font-medium">Thương hiệu lốp</a>
+            <a href="#about" class="text-current hover:text-red-600 text-lg font-medium">Giới thiệu</a>
+            <a href="#contact" class="text-current hover:text-red-600 text-lg font-medium">Liên hệ</a>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <section id="home" class="banner text-center">
+        <div class="container mx-auto px-4" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">Chất lượng tạo uy tín<br>Nhà phân phối lốp xe hàng đầu!</h1>
+            <a href="#brands" class="btn-ripple inline-block">Khám phá thương hiệu</a>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Brands -->
+    <section id="brands" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-6" data-aos="fade-up">Thương Hiệu Lốp Xe</h2>
+            <p class="text-center mb-10 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Nhà phân phối lốp xe chính hãng từ các thương hiệu hàng đầu, lớn nhất khu vực Bắc Kạn.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                <div class="brand-card maxxis p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="100">
+                    <img loading="lazy" src="https://www.maxxis.com/us/wp-content/themes/maxxis/assets/images/logo.svg" alt="MAXXIS" class="w-32 mb-2">
+                    <h3 class="text-xl font-semibold text-red-600">MAXXIS</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="200">
+                    <img loading="lazy" src="https://robert-parker-michelin-bk-stage.s3.amazonaws.com/media/image/2017/08/22/280ed21954b24406a46dce03abc9596a_michelin-logo-small.jpg" alt="Michelin" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">Michelin</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="300">
+                    <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Bridgestone_logo.svg" alt="Bridgestone" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">Bridgestone</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="400">
+                    <img loading="lazy" src="https://roadxtruck.com/wp-content/themes/roadx/static/imgs/logo-glow-v4-splash.png" alt="RoadX" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">RoadX</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center h-48" data-aos="zoom-in" data-aos-delay="500">
+                    <img loading="lazy" src="https://static.wixstatic.com/media/7ea6ab_11c8d5f1bb16465390d2ed0cf2a56eba~mv2.png/v1/fill/w_442,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/drc.png" alt="DRC" class="w-28 mb-2">
+                    <h3 class="text-xl font-semibold">DRC</h3>
+                </div>
+                <div class="brand-card p-6 flex flex-col justify-center items-center text-center

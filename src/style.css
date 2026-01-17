@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom premium aesthetic overrides */
+@layer components {
+    .btn-primary {
+        @apply bg-brand-red text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-red-500/40 hover:-translate-y-1 block w-fit;
+    }
+    
+    .card-glass {
+        @apply bg-white/90 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl;
+    }
+}
