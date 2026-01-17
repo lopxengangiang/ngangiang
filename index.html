@@ -222,31 +222,153 @@
                     công nghiệp lốp xe.</p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                <!-- Brand Items -->
-                <template x-for="brand in [
-                    { name: 'MAXXIS', img: 'https://www.maxxis.com/us/wp-content/themes/maxxis/assets/images/logo.svg', url: 'https://www.maxxis.com/us/' },
-                    { name: 'Michelin', img: 'https://robert-parker-michelin-bk-stage.s3.amazonaws.com/media/image/2017/08/22/280ed21954b24406a46dce03abc9596a_michelin-logo-small.jpg', url: 'https://www.michelin.com.vn/', large: true },
-                    { name: 'Bridgestone', img: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Bridgestone_logo.svg', url: 'https://www.bridgestone.com.vn/' },
-                    { name: 'RoadX', img: 'https://roadxtruck.com/wp-content/themes/roadx/static/imgs/logo-glow-v4-splash.png', url: 'https://roadxtire.com/' },
-                    { name: 'DRC', img: 'https://static.wixstatic.com/media/7ea6ab_11c8d5f1bb16465390d2ed0cf2a56eba~mv2.png/v1/fill/w_442,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/drc.png', url: 'http://drc.com.vn/' },
-                    { name: 'Casumina', img: 'logo_casumina.jpg', url: 'http://casumina.com/' }
-                ]">
-                    <a :href="brand.url" target="_blank"
-                        class="group bg-white rounded-2xl p-6 flex flex-col items-center justify-center h-40 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-transparent to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity">
+            <!-- Brand Items -->
+            <!-- Brand Items -->
+            <!-- Brand Items -->
+            <!-- Brand Items -->
+            <div x-data="{
+                activeBrand: null,
+                brands: [
+                    { 
+                        name: 'MAXXIS', 
+                        img: 'https://www.maxxis.com/us/wp-content/themes/maxxis/assets/images/logo.svg', 
+                        origin: 'Đài Loan',
+                        features: 'Bền, giá hợp lý, đa dạng loại xe',
+                        target: 'Người cần lốp tốt – giá vừa phải',
+                        summary: 'Tầm trung – giá hợp lý'
+                    },
+                    { 
+                        name: 'Michelin', 
+                        img: 'https://robert-parker-michelin-bk-stage.s3.amazonaws.com/media/image/2017/08/22/280ed21954b24406a46dce03abc9596a_michelin-logo-small.jpg', 
+                        origin: 'Pháp',
+                        features: 'Êm ái, bền, bám đường tốt, tiết kiệm nhiên liệu',
+                        target: 'Người chạy xe nhiều, thích chất lượng cao',
+                        summary: 'Cao cấp – êm – bền',
+                        large: true 
+                    },
+                    { 
+                        name: 'Bridgestone', 
+                        img: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Bridgestone_logo.svg', 
+                        origin: 'Nhật Bản',
+                        features: 'Bền, ổn định, chịu tải tốt',
+                        target: 'Xe gia đình, xe dịch vụ, đường dài',
+                        summary: 'Cao cấp – êm – bền'
+                    },
+                    { 
+                        name: 'RoadX', 
+                        img: 'https://roadxtruck.com/wp-content/themes/roadx/static/imgs/logo-glow-v4-splash.png', 
+                        origin: 'Trung Quốc',
+                        features: 'Giá thấp, mẫu mã đa dạng',
+                        target: 'Xe chạy ngắn, ít sử dụng',
+                        summary: 'Tiết kiệm – phổ thông'
+                    },
+                    { 
+                        name: 'DRC', 
+                        img: 'https://static.wixstatic.com/media/7ea6ab_11c8d5f1bb16465390d2ed0cf2a56eba~mv2.png/v1/fill/w_442,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/drc.png', 
+                        origin: 'Việt Nam',
+                        features: 'Chịu tải tốt, dùng nhiều cho xe tải',
+                        target: 'Xe tải, xe kinh doanh',
+                        summary: 'Chuyên xe tải'
+                    },
+                    { 
+                        name: 'Casumina', 
+                        img: 'logo_casumina.jpg', 
+                        origin: 'Việt Nam',
+                        features: 'Giá rẻ, dễ mua, phù hợp đường Việt Nam',
+                        target: 'Người ưu tiên tiết kiệm chi phí',
+                        summary: 'Tiết kiệm – phổ thông'
+                    }
+                ]
+            }">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <template x-for="brand in brands">
+                        <div @click="activeBrand = brand"
+                            :class="brand.highlight ? 'border-brand-red/50 ring-2 ring-red-100' : 'border-gray-200'"
+                            class="group bg-white rounded-2xl p-6 flex flex-col items-center justify-center h-40 border shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-transparent to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <img :src="brand.img" :alt="brand.name" :class="brand.large ? 'scale-125' : ''"
+                                class="max-h-16 w-auto object-contain z-10 filter grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110">
+                            <div
+                                class="absolute bottom-2 text-[10px] text-brand-red font-bold opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider">
+                                Xem chi tiết</div>
                         </div>
-                        <img :src="brand.img" :alt="brand.name" :class="brand.large ? 'scale-125' : ''"
-                            class="max-h-16 w-auto object-contain z-10 filter grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110">
-                    </a>
-                </template>
-            </div>
+                    </template>
 
-            <div class="mt-12 text-center">
-                <p class="text-slate-500 text-sm">Và nhiều thương hiệu uy tín khác...</p>
+                    <!-- Modal -->
+                    <div x-show="activeBrand" style="display: none;"
+                        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                        class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm">
+
+                        <div @click.outside="activeBrand = null"
+                            class="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden relative"
+                            x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 scale-95 translate-y-10"
+                            x-transition:enter-end="opacity-100 scale-100 translate-y-0">
+
+                            <!-- Header -->
+                            <div class="bg-brand-dark p-6 text-white relative overflow-hidden">
+                                <div class="absolute top-0 right-0 p-6 opacity-10">
+                                    <i class="fas fa-certificate text-8xl transform rotate-12"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold font-display mb-1" x-text="activeBrand?.name"></h3>
+                                <p class="text-brand-red text-sm font-bold uppercase tracking-widest"
+                                    x-text="activeBrand?.origin"></p>
+                                <button @click="activeBrand = null"
+                                    class="absolute top-4 right-4 text-white/70 hover:text-white transition-colors">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="p-6 space-y-6">
+                                <div>
+                                    <h4 class="text-xs uppercase text-slate-400 font-bold tracking-wider mb-2">Đặc
+                                        điểm
+                                        nổi bật</h4>
+                                    <p class="text-slate-800 font-medium text-lg leading-relaxed"
+                                        x-text="activeBrand?.features"></p>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-xs uppercase text-slate-400 font-bold tracking-wider mb-2">Phù
+                                        hợp
+                                        với ai?</h4>
+                                    <div
+                                        class="flex items-start gap-3 bg-blue-50 p-4 rounded-xl border border-blue-100">
+                                        <i class="fas fa-user-check text-blue-500 mt-1"></i>
+                                        <p class="text-blue-900 font-medium text-sm" x-text="activeBrand?.target">
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4 border-t border-slate-100">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs uppercase text-slate-500 font-bold">Tổng kết</span>
+                                        <span
+                                            class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold border border-green-200"
+                                            x-text="activeBrand?.summary"></span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    @click="activeBrand = null; document.getElementById('contact').scrollIntoView({behavior: 'smooth'})"
+                                    class="w-full bg-brand-red hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-red-500/30 flex items-center justify-center gap-2">
+                                    <i class="fas fa-phone-alt"></i> Liên hệ tư vấn ngay
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="mt-12 text-center">
+                    <p class="text-slate-500 text-sm">Và nhiều thương hiệu uy tín khác...</p>
+                </div>
             </div>
-        </div>
     </section>
 
     <!-- Features / Why Choose Us -->
